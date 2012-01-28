@@ -11,7 +11,9 @@ module Sisow
       end
 
       def clean(response)
-        response['directoryresponse']['directory']
+        if response.directoryresponse? && response.directoryresponse.directory?
+          response.directoryresponse.directory
+        end
       end
 
     end

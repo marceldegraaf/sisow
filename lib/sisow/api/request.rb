@@ -17,6 +17,9 @@ module Sisow
 
         response = self.class.get(uri)
         response = Hashie::Mash.new(response)
+
+        error!(response) if response.errorresponse?
+
         clean(response)
       end
 
@@ -48,6 +51,11 @@ module Sisow
 
         def test_mode_param
           'true'
+        end
+
+        def error!(response)
+          error_response = Sisow::ErrorResponse.new(response)
+          raise Sisow::Exception, error_response.message and return
         end
 
     end

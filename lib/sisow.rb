@@ -1,6 +1,8 @@
 require 'httparty'
 require 'hashie'
 
+require 'sisow/error_response'
+require 'sisow/exception'
 require 'sisow/issuer'
 require 'sisow/ping'
 require 'sisow/payment'

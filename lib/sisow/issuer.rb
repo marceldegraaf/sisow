@@ -5,8 +5,11 @@ module Sisow
     def self.list
       hash = Sisow::Api::DirectoryRequest.perform
 
-      hash.map do |k, v|
-        new(:id => v['issuerid'], :name => v['issuername'])
+      hash.issuer.map do |issuer|
+        new(
+          :id => issuer.issuerid,
+          :name => issuer.issuername
+        )
       end
     end
 
