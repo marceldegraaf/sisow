@@ -1,0 +1,69 @@
+= Sisow
+
+This gem provides an interface to interact with the Sisow payment provider. Sisow offers payments through iDeal (Dutch)
+and Bancontact/Mister Cash (Belgian).
+
+To use this gem, you'll need a Rails application (I'm using it in Rails 3.2, YMMV with other versions) and a payment
+account at Sisow (you'll need your merchant key and merchant id).
+
+== Installation
+
+To use this gem, install it with <tt>gem install sisow</tt> or add it to your Gemfile:
+
+  gem 'sisow'
+
+And install it with <tt>bundle install</tt>
+
+== Usage
+
+=== Configuration
+
+To be able to use the gem, you should create a new initializer in your Rails project and add your Sisow keys:
+
+  Sisow.setup do |config|
+    config.merchant_key = 'your-merchant-key'
+    config.merchant_id  = 'your-merchant-id'
+
+    #
+    # The following settings are optional
+    #
+    config.test_mode    = false   # default: false
+    config.debug        = false   # default: false
+  end
+
+That's it. Once you restart your Rails application (or open a Rails console) you should be able to communicate with
+the Sisow API.
+
+=== Getting a list of issuers
+
+To set up a payment, your user needs to choose an issuer (a bank) that will fulfill the payment. This will typically be
+the user's own bank.
+
+To fetch a list of Issuers, use the following command:
+
+  Sisow::Issuer.list
+
+This will return a list of <tt>Issuer</tt> objects that have an <tt>id</tt> and a <tt>name</tt>. The <tt>id</tt> is needed
+to set up the payment in the following step.
+
+=== Setting up a payment
+
+After choosing an issuer, your user must be redirected to the payment page for that issuer. For that to happen, you'll have to
+set up a payment through the Sisow API, after which you'll be given a URL to redirect your user to.
+
+Setting up a payment looks like this:
+
+  payment_attributes = {
+    :purchase_id    => '2012-01-28-33558',      # for your own reference. May contain spaces
+    :issuer_id      => '99',                    # the issuer id from the previous step
+    :description    => 'Acme Inc. payment',     # description of this payment
+    :amount         => 1299,                    # amount in Euro in cents
+    :entrance_code  => 'foobar-foxtrot',        # a verification code you can choose. Cannot contain spaces
+    :return_url     => 'http://example.com',    # where the user is sent after the payment
+    :cancel_url     => 'http://example.com',    # where the user is sent when he cancels the payment
+    :callback_url   => 'http://example.com',    # where a failed (not cancelled) payment will be reported
+    :notify_url     => 'http://example.com',    # where the payment status will be reported
+  }
+
+  payment = Sisow::Payment.new(payment_attributes)
+  redirect_url = payment.payment_url

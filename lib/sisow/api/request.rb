@@ -4,7 +4,7 @@ module Sisow
 
       include HTTParty
       base_uri "http://www.sisow.nl/Sisow/iDeal/RestHandler.ashx/"
-      #debug_output $stderr
+      debug_output $stderr
 
       attr_accessor :uri
 
@@ -16,14 +16,15 @@ module Sisow
         return unless can_perform?
 
         response = self.class.get(uri)
+        response = Hashie::Mash.new(response)
         clean(response)
       end
 
       def default_params
         {
-          :merchant_id  => Sisow.merchant_id,
-          :merchant_key => Sisow.merchant_key,
-          :test         => Sisow.test_mode_enabled?? test_mode_param : nil
+          :merchantid  => Sisow.merchant_id,
+          :merchantkey => Sisow.merchant_key,
+          :test        => Sisow.test_mode_enabled?? test_mode_param : nil
         }
       end
 
