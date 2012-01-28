@@ -1,5 +1,7 @@
 = Sisow
 
+*NOTE* This gem is very much work in progress. I'm planning to have it ready somewhere in February. Until then this gem may eat your kittens or kidnap your wife. You have been warned.
+
 This gem provides an interface to interact with the Sisow payment provider. Sisow offers payments through iDeal (Dutch)
 and Bancontact/Mister Cash (Belgian).
 
