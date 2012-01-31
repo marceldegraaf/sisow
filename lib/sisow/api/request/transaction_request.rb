@@ -21,6 +21,8 @@ module Sisow
       end
 
       def clean(response)
+        check_validity!(response)
+
         if response.transactionrequest? && response.transactionrequest.transaction?
           response.transactionrequest.transaction
         end
@@ -43,7 +45,7 @@ module Sisow
 
         def transaction_params
           {
-            :payment      => 'ideal',
+            :payment      => payment.payment_method,
             :purchaseid   => payment.purchase_id,
             :amount       => payment.amount,
             :issuerid     => payment.issuer_id,
@@ -59,6 +61,17 @@ module Sisow
 
         def payment
           @payment
+        end
+
+        def check_validity!(response)
+          string = [ response.transactionrequest.transaction.trxid, response.transactionrequest.transaction.issuerurl, Sisow.merchant_id, Sisow.merchant_key ].join
+          calculated_sha1 = Digest::SHA1.hexdigest(string)
+
+          puts calculated_sha1
+
+          if calculated_sha1 != response.transactionrequest.signature.sha1
+            raise Sisow::Exception, "This response has been forged" and return
+          end
         end
 
     end

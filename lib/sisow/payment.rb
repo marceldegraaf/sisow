@@ -4,7 +4,6 @@ module Sisow
     attr_accessor :purchase_id,
                   :issuer_id,
                   :description,
-                  :payment_method,
                   :amount,
                   :entrance_code,
                   :return_url,
@@ -28,6 +27,8 @@ module Sisow
     def shop_id
       Sisow.shop_id
     end
+
+    def payment_method; raise 'Implement me in a subclass'; end
 
   end
 end

@@ -6,10 +6,13 @@ require 'sisow/exception'
 require 'sisow/issuer'
 require 'sisow/ping'
 require 'sisow/payment'
+require 'sisow/payment/ideal_payment'
+require 'sisow/payment/bancontact_payment'
 require 'sisow/api/request'
 require 'sisow/api/request/directory_request'
 require 'sisow/api/request/ping_request'
 require 'sisow/api/request/transaction_request'
+require 'sisow/api/callback'
 
 module Sisow
 
