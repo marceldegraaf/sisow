@@ -28,6 +28,10 @@ module Sisow
         end
       end
 
+      def validate!
+        raise Sisow::Exception, 'One of your payment parameters is invalid' unless @payment.valid?
+      end
+
       def sha1
         string = [
           payment.purchase_id,

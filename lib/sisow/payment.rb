@@ -28,6 +28,10 @@ module Sisow
       Sisow.shop_id
     end
 
+    def valid?
+      entrance_code.index(/-|_/).nil?
+    end
+
     def payment_method; raise 'Implement me in a subclass'; end
 
   end

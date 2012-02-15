@@ -16,6 +16,10 @@ module Sisow
         end
       end
 
+      def validate!
+        true
+      end
+
     end
   end
 end

@@ -13,7 +13,9 @@ module Sisow
       end
 
       def perform
-        return unless can_perform?
+        raise Sisow::Exception, 'Your merchant_id or merchant_key are not set' unless can_perform?
+
+        validate!
 
         response = self.class.get(uri)
         response = Hashie::Mash.new(response)
@@ -31,9 +33,10 @@ module Sisow
         }
       end
 
-      def params; raise 'Implement me in a subclass'; end
-      def method; raise 'Implement me in a subclass'; end
-      def clean;  raise 'Implement me in a subclass'; end
+      def params;     raise 'Implement me in a subclass'; end
+      def method;     raise 'Implement me in a subclass'; end
+      def clean;      raise 'Implement me in a subclass'; end
+      def validate!;  raise 'Implement me in a subclass'; end
 
       private
 
@@ -45,8 +48,12 @@ module Sisow
           [ '/', method, '?', encoded_params ].join
         end
 
-        def encoded_params
+        def params_string
           params.map { |k,v| [ k, '=', v ].join }.join('&')
+        end
+
+        def encoded_params
+          URI.encode(params_string)
         end
 
         def test_mode_param
