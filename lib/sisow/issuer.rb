@@ -5,6 +5,8 @@ module Sisow
     def self.list
       hash = Sisow::Api::DirectoryRequest.perform
 
+      hash.issuer = [ hash.issuer ] unless hash.issuer.is_a?(Array)
+
       hash.issuer.map do |issuer|
         new(
           :id => issuer.issuerid,
