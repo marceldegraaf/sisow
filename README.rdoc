@@ -1,4 +1,5 @@
 = Sisow
+{<img src="https://secure.travis-ci.org/marceldegraaf/sisow.png" />}[http://travis-ci.org/marceldegraaf/sisow]
 
 *NOTE* This gem is work in progress. I'm planning to have it ready somewhere in March.
 
