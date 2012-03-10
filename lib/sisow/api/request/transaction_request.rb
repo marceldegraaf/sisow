@@ -29,7 +29,7 @@ module Sisow
       end
 
       def validate!
-        raise Sisow::Exception, 'One of your payment parameters is invalid' unless @payment.valid?
+        raise Sisow::Exception, 'One of your payment parameters is missing or invalid' unless @payment.valid?
       end
 
       def sha1

@@ -49,4 +49,9 @@ describe Sisow::Payment do
     lambda{ @payment.payment_method }.should raise_error
   end
 
+  it "should raise an error if amount is missing" do
+    @payment.amount = nil
+    lambda{ @payment.payment_url }.should raise_error(Sisow::Exception, "One of your payment parameters is missing or invalid")
+  end
+
 end

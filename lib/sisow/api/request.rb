@@ -5,8 +5,6 @@ module Sisow
       include HTTParty
       base_uri "http://www.sisow.nl/Sisow/iDeal/RestHandler.ashx/"
 
-      attr_accessor :uri
-
       def self.perform
         new.perform
       end

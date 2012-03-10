@@ -11,8 +11,14 @@ module Sisow
         attributes.each do |k,v|
           send("#{k}=", v)
         end
+      end
 
-        check_validity!
+      def valid?
+        valid_callback == true
+      end
+
+      def validate!
+        raise Sisow::Exception, "This callback is forged" and return if valid_callback == false
       end
 
       def success?
@@ -33,13 +39,11 @@ module Sisow
 
       private
 
-        def check_validity!
+        def valid_callback
           string = [ @transaction_id, @entrance_code, @status, Sisow.configuration.merchant_id, Sisow.configuration.merchant_key ].join
           calculated_sha1 = Digest::SHA1.hexdigest(string)
 
-          if calculated_sha1 != @sha1
-            raise Sisow::Exception, "This callback is forged" and return
-          end
+          calculated_sha1 == @sha1
         end
 
     end

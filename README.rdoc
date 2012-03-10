@@ -71,13 +71,35 @@ Setting up a payment looks like this:
 
 This gem supports payments through iDeal, Bancontact/Mister Cash and Sofort. Each of these payment methods have their own class. Payment attributes are the same for each payment method, so in the example above you should only need to switch <tt>Sisow::IdealPayment</tt> for one of the other classes. These are the available class names:
 
-  Sisow::IdealPayment       # for iDeal payment
+  Sisow::IdealPayment       # for iDeal payments
   Sisow::BancontactPayment  # for Bancontact/Mister Cash payments
   Sisow::SofortPayment      # for Sofort payments
 
 === Validity checks
 
 The Sisow API has a few safety measures built in, to prevent malicious users from tampering with your payments. These checks are documented in the Sisow API documentation and are implemented in the gem.
+
+=== Callbacks
+
+As documented in the Sisow API documentation, four callbacks are available. When setting up your payment, each of these callbacks can be assigned a URL. These are: <tt>return_url</tt>, <tt>cancel_url</tt>, <tt>callback_url</tt> and <tt>notify_url</tt>. After a successful or failed payment, or when the payment timeout has been reached, the Sisow API will attempt to perform a GET request on the URL's you defined.
+
+The <tt>Sisow::Api::Callback</tt> can handle these callbacks for you. To initialize such an instance you should provide the following query parameters (which are given by Sisow in the request):
+
+  callback = Sisow::Api::Callback.new(
+    :transaction_id => params[:trxid],
+    :entrance_code  => params[:ec],
+    :status         => params[:status],
+    :sha1           => params[:sha1]
+  )
+
+After initializing a <tt>Sisow::Api::Callback</tt> instance, you can check the validity of the callback and check the transaction status:
+
+  callback.validate!  # Will raise a Sisow::Exception unless the callback is valid
+  callback.valid?     # Will return a boolean to indicate the validity of the callback
+  callback.success?   # True if the transaction was successful
+  callback.expired?   # True if the transaction has expired
+  callback.cancelled? # True if the transaction was cancelled
+  callback.failure?   # True if the transaction has failed
 
 == Development
 
