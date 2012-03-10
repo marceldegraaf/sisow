@@ -1,2 +1,5 @@
-merchant_id:  '1234567890'
-merchant_key: '1234567890abcdefg1234567890'
+#
+# These credentials belong to a testing account in Sisow
+#
+merchant_id:  '2537407799'
+merchant_key: '0f9b49d384b4836c543f76d23a923e2cd2cfaec6'
