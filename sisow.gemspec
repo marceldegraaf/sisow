@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Marcel de Graaf"]
   s.email       = ["mail@marceldegraaf.net"]
-  s.homepage    = ""
+  s.homepage    = "http://github.com/marceldegraaf/sisow"
   s.summary     = %q{Rails gem for payments through Sisow.}
   s.description = %q{This gem implements the REST API of the Sisow payment provider.}
 
