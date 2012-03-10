@@ -23,7 +23,7 @@ And update your bundle with <tt>bundle install</tt>
 
 To be able to use the gem, you must first configure it. If you're on Rails, insert the following code in <tt>config/initializers/sisow.rb</tt>:
 
-  Sisow.setup do |config|
+  Sisow.configure do |config|
     config.merchant_key = 'your-merchant-key'
     config.merchant_id  = 'your-merchant-id'
 
