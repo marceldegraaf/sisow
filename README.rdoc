@@ -1,26 +1,26 @@
 = Sisow
 
-*NOTE* This gem is very much work in progress. I'm planning to have it ready somewhere in February. Until then this gem may eat your kittens or kidnap your wife. You have been warned.
+*NOTE* This gem is work in progress. I'm planning to have it ready somewhere in March.
 
-This gem provides an interface to interact with the Sisow payment provider. Sisow offers payments through iDeal (Dutch)
-and Bancontact/Mister Cash (Belgian).
+This gem provides an interface to interact with the Sisow payment provider. Sisow offers payments through the iDeal (Dutch),
+Bancontact/Mister Cash (Belgian) and Sofort (German) online payment systems.
 
-To use this gem, you'll need a Rails application (I'm using it in Rails 3.2, YMMV with other versions) and a payment
-account at Sisow (you'll need your merchant key and merchant id).
+To use this gem, you'll need a payment account at Sisow (you'll need your <tt>merchant key</tt> and <tt>merchant id</tt>).
+The gem is aimed at Rails 3.2 but it should work on older Rails versions as well as in non-Rails apps.
 
 == Installation
 
-To use this gem, install it with <tt>gem install sisow</tt> or add it to your Gemfile:
+To install this gem, simply do <tt>gem install sisow</tt> or add it to your Gemfile:
 
   gem 'sisow'
 
-And install it with <tt>bundle install</tt>
+And update your bundle with <tt>bundle install</tt>
 
 == Usage
 
 === Configuration
 
-To be able to use the gem, you should create a new initializer in your Rails project and add your Sisow keys:
+To be able to use the gem, you must first configure it. If you're on Rails, insert the following code in <tt>config/initializers/sisow.rb</tt>:
 
   Sisow.setup do |config|
     config.merchant_key = 'your-merchant-key'
@@ -30,7 +30,7 @@ To be able to use the gem, you should create a new initializer in your Rails pro
     # The following settings are optional
     #
     config.test_mode    = false   # default: false
-    config.debug        = false   # default: false
+    config.debug_mode   = false   # default: false
   end
 
 That's it. Once you restart your Rails application (or open a Rails console) you should be able to communicate with
@@ -38,14 +38,11 @@ the Sisow API.
 
 === Getting a list of issuers
 
-To set up a payment, your user needs to choose an issuer (a bank) that will fulfill the payment. This will typically be
-the user's own bank.
-
-To fetch a list of Issuers, use the following command:
+To set up a payment, your user needs to choose an issuer (a bank) that will fulfill the payment. To fetch a list of Issuers, use the following command:
 
   Sisow::Issuer.list
 
-This will return a list of <tt>Issuer</tt> objects that have an <tt>id</tt> and a <tt>name</tt>. The <tt>id</tt> is needed
+This will return a list of <tt>Sisow::Issuer</tt> objects that have an <tt>id</tt> and a <tt>name</tt>. The <tt>id</tt> is needed
 to set up the payment in the following step.
 
 === Setting up a payment
@@ -56,7 +53,7 @@ set up a payment through the Sisow API, after which you'll be given a URL to red
 Setting up a payment looks like this:
 
   payment_attributes = {
-    :purchase_id    => '2012-01-28-33558',      # for your own reference. May contain spaces
+    :purchase_id    => '2012-01-28-33558',      # for your own reference
     :issuer_id      => '99',                    # the issuer id from the previous step
     :description    => 'Acme Inc. payment',     # description of this payment
     :amount         => 1299,                    # amount in Euro in cents
@@ -67,5 +64,31 @@ Setting up a payment looks like this:
     :notify_url     => 'http://example.com',    # where the payment status will be reported
   }
 
-  payment = Sisow::Payment.new(payment_attributes)
+  payment = Sisow::IdealPayment.new(payment_attributes)
   redirect_url = payment.payment_url
+
+=== Supported payment methods
+
+This gem supports payments through iDeal, Bancontact/Mister Cash and Sofort. Each of these payment methods have their own class. Payment attributes are the same for each payment method, so in the example above you should only need to switch <tt>Sisow::IdealPayment</tt> for one of the other classes. These are the available class names:
+
+  Sisow::IdealPayment       # for iDeal payment
+  Sisow::BancontactPayment  # for Bancontact/Mister Cash payments
+  Sisow::SofortPayment      # for Sofort payments
+
+=== Validity checks
+
+The Sisow API has a few safety measures built in, to prevent malicious users from tampering with your payments. These checks are documented in the Sisow API documentation and are implemented in the gem.
+
+== Development
+
+Your contributions are more than welcome. To contribute to this gem, follow these steps:
+
+1. Fork the repository from Github
+2. Clone your fork on your development machine
+3. Install the dependencies with <tt>bundle install</tt>
+4. Copy <tt>spec/sisow.yml.example</tt> to <tt>spec/sisow.yml</tt> and enter your own Sisow credentials
+5. Verify your clone is working by running <tt>rspec</tt>
+6. Hack away
+7. Run the specs with <tt>rspec</tt>
+8. Verify spec coverage by opening <tt>coverage/index.html</tt>
+9. If all is good: send me a pull request

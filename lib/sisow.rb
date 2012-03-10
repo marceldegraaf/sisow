@@ -2,6 +2,7 @@ require 'rubygems'
 require 'httparty'
 require 'hashie'
 
+require 'sisow/configuration'
 require 'sisow/error_response'
 require 'sisow/exception'
 require 'sisow/issuer'
@@ -10,38 +11,30 @@ require 'sisow/payment'
 require 'sisow/payment/ideal_payment'
 require 'sisow/payment/bancontact_payment'
 require 'sisow/payment/sofort_payment'
+require 'sisow/merchant'
 require 'sisow/api/request'
 require 'sisow/api/request/directory_request'
 require 'sisow/api/request/ping_request'
 require 'sisow/api/request/transaction_request'
+require 'sisow/api/request/check_merchant_request'
 require 'sisow/api/callback'
 
 module Sisow
 
-  mattr_accessor :merchant_id, :merchant_key, :test_mode, :debug, :shop_id
+  class << self
 
-  @@_ran_once = false
+    def service_reachable?
+      ping = Sisow::Ping.send
+    end
 
-  def self.setup
-    yield self if @@_ran_once == false
-    @@_ran_once = true
-  end
+    def configure
+      yield configuration
+    end
 
-  def self.test_mode_enabled?
-    @@test_mode ||= false
-  end
+    def configuration
+      @configuration ||= Configuration.new
+    end
 
-  def self.debug_mode_enabled?
-    @@debug ||= false
-  end
-
-  def self.service_reachable?
-    ping = Sisow::Ping.send
-    ping.present?
-  end
-
-  def self.shop_id
-    @@shop_id || ''
   end
 
 end

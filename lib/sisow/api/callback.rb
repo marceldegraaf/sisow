@@ -34,7 +34,7 @@ module Sisow
       private
 
         def check_validity!
-          string = [ @transaction_id, @entrance_code, @status, Sisow.merchant_id, Sisow.merchant_key ].join
+          string = [ @transaction_id, @entrance_code, @status, Sisow.configuration.merchant_id, Sisow.configuration.merchant_key ].join
           calculated_sha1 = Digest::SHA1.hexdigest(string)
 
           if calculated_sha1 != @sha1

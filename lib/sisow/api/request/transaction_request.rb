@@ -37,9 +37,8 @@ module Sisow
           payment.purchase_id,
           payment.entrance_code,
           payment.amount,
-          payment.shop_id,
-          Sisow.merchant_id,
-          Sisow.merchant_key
+          Sisow.configuration.merchant_id,
+          Sisow.configuration.merchant_key
         ].join
 
         Digest::SHA1.hexdigest(string)
@@ -59,6 +58,7 @@ module Sisow
             :cancelurl    => payment.cancel_url,
             :callbackurl  => payment.callback_url,
             :notifyurl    => payment.notify_url,
+            :shop_id      => payment.shop_id,
             :sha1         => sha1
           }
         end
@@ -68,10 +68,13 @@ module Sisow
         end
 
         def check_validity!(response)
-          string = [ response.transactionrequest.transaction.trxid, response.transactionrequest.transaction.issuerurl, Sisow.merchant_id, Sisow.merchant_key ].join
+          string = [
+            response.transactionrequest.transaction.trxid,
+            response.transactionrequest.transaction.issuerurl,
+            Sisow.configuration.merchant_id,
+            Sisow.configuration.merchant_key
+          ].join
           calculated_sha1 = Digest::SHA1.hexdigest(string)
-
-          puts calculated_sha1
 
           if calculated_sha1 != response.transactionrequest.signature.sha1
             raise Sisow::Exception, "This response has been forged" and return

@@ -25,11 +25,13 @@ module Sisow
     end
 
     def shop_id
-      Sisow.shop_id
+      Sisow.configuration.shop_id
     end
 
     def valid?
-      entrance_code.index(/-|_/).nil?
+      entrance_code.index(/-|_/).nil? &&
+      purchase_id.index(/\#|_/).nil? &&
+      (!amount.nil? && amount != '')
     end
 
     def payment_method; raise 'Implement me in a subclass'; end

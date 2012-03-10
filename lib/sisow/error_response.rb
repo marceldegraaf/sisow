@@ -3,7 +3,6 @@ module Sisow
     attr_accessor :code, :message
 
     def initialize(response)
-      puts response.inspect
       @code    = response.errorresponse.error.errorcode
       @message = response.errorresponse.error.errormessage
     end

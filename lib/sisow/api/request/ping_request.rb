@@ -11,7 +11,7 @@ module Sisow
       end
 
       def clean(response)
-        if response.pingresponse? && response.timestamp?
+        if response.pingresponse? && response.pingresponse.timestamp?
           response.pingresponse.timestamp
         end
       end
