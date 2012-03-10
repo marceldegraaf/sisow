@@ -38,7 +38,7 @@ module Sisow
       private
 
         def can_perform?
-          !Sisow.configuration.merchant_id.empty? && !Sisow.configuration.merchant_key.empty?
+          !(Sisow.configuration.merchant_id.nil? || Sisow.configuration.merchant_id.empty?) && !(Sisow.configuration.merchant_key.nil? || Sisow.configuration.merchant_key.empty?)
         end
 
         def uri
