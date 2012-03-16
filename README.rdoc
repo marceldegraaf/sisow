@@ -58,7 +58,7 @@ Setting up a payment looks like this:
     :issuer_id      => '99',                    # the issuer id from the previous step
     :description    => 'Acme Inc. payment',     # description of this payment
     :amount         => 1299,                    # amount in Euro in cents
-    :entrance_code  => 'foobar-foxtrot',        # internal verification code of your choice
+    :entrance_code  => 'foobarfoxtrot',         # internal verification code of your choice
     :return_url     => 'http://example.com',    # where the user is sent after the payment
     :cancel_url     => 'http://example.com',    # where the user is sent when he cancels the payment
     :callback_url   => 'http://example.com',    # where a failed (not cancelled) payment will be reported
