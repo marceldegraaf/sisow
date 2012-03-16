@@ -5,3 +5,4 @@ pkg/*
 spec/sisow.yml
 coverage/
 spec/vcr_cassettes
+.rvmrc

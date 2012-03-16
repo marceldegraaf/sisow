@@ -7,7 +7,7 @@ module Sisow
       end
 
       def params
-        default_params
+        {}
       end
 
       def clean(response)

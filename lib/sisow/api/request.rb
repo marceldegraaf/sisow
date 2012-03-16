@@ -25,7 +25,6 @@ module Sisow
       def default_params
         {
           :merchantid  => Sisow.configuration.merchant_id,
-          :merchantkey => Sisow.configuration.merchant_key,
           :test        => Sisow.configuration.test_mode_enabled?? test_mode_param : nil
         }
       end
