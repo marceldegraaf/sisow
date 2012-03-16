@@ -29,5 +29,13 @@ module Sisow
       @debug_mode == true
     end
 
+    def merchant_key=(merchant_key)
+      @merchant_key = merchant_key.to_s
+    end
+
+    def merchant_id=(merchant_id)
+      @merchant_id = merchant_id.to_s
+    end
+
   end
 end

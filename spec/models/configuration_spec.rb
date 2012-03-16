@@ -21,5 +21,15 @@ describe Sisow::Configuration do
     @configuration.debug_mode_enabled?.should == true
   end
 
+  it "should always save merchant_key as string" do
+    @configuration.merchant_key = 123
+    @configuration.merchant_key.should == '123'
+  end
+
+  it "should always save merchant_id as string" do
+    @configuration.merchant_id = 123
+    @configuration.merchant_id.should == '123'
+  end
+
 
 end
