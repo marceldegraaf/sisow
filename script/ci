@@ -1,4 +1,4 @@
-!/bi/bash
+#!/bin/bash
 export RAILS_ENV=test
 
 run() {
