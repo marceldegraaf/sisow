@@ -3,7 +3,7 @@
 
 *WARNING* There is an issue in the <tt>httparty</tt> gem that breaks the <tt>debug_mode</tt> of this Sisow gem. The only work-around at this time is to not enable <tt>debug_mode</tt>. I'll keep an eye on the <tt>httparty</tt> issue and update the Readme if anything changes. Sorry for the inconvenience.
 
------
+-------
 
 This gem provides an interface to interact with the Sisow payment provider. Sisow offers payments through the iDeal (Dutch),
 Bancontact/Mister Cash (Belgian) and Sofort (German) online payment systems.
