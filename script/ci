@@ -1,0 +1,12 @@
+!/bi/bash
+export RAILS_ENV=test
+
+run() {
+  time bundle exec $*
+}
+
+echo "--- Starting continuous integration build"
+
+./script/bundler
+
+run rspec

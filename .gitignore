@@ -5,3 +5,4 @@ spec/sisow.yml
 coverage/
 spec/vcr_cassettes
 .rvmrc
+vendor
