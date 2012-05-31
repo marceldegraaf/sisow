@@ -29,6 +29,8 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
+    simplecov-rcov (0.2.3)
+      simplecov (>= 0.4.1)
     vcr (2.1.1)
 
 PLATFORMS
@@ -39,5 +41,6 @@ DEPENDENCIES
   rake
   rspec
   simplecov
+  simplecov-rcov
   sisow!
   vcr

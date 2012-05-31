@@ -1,8 +1,13 @@
 require 'bundler/setup'
 require 'simplecov'
+require 'simplecov-rcov'
 
 SimpleCov.start do
   add_filter 'vendor'
+end
+
+if ENV['BUILD_NUMBER'] && ENV['BUILD_ID']
+  SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
 end
 
 require 'vcr_setup'
