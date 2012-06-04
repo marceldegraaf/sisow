@@ -26,4 +26,10 @@ describe Sisow::IdealPayment do
     end
   end
 
+  it "should contain a transaction ID from Sisow" do
+    VCR.use_cassette("ideal_payment") do
+      @payment.transaction_id.should =~ /TEST\d{12}/
+    end
+  end
+
 end

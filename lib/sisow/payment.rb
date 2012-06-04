@@ -18,10 +18,11 @@ module Sisow
     end
 
     def payment_url
-      request = Sisow::Api::TransactionRequest.new(self)
-      response = request.perform
-
       CGI::unescape(response.issuerurl) if response.issuerurl?
+    end
+
+    def transaction_id
+      response.trxid if response.trxid?
     end
 
     def shop_id
@@ -35,6 +36,16 @@ module Sisow
     end
 
     def payment_method; raise 'Implement me in a subclass'; end
+
+    private
+
+      def response
+        @raw_response ||= request.perform
+      end
+
+      def request
+        @request ||= Sisow::Api::TransactionRequest.new(self)
+      end
 
   end
 end
