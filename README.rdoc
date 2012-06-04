@@ -68,7 +68,8 @@ Setting up a payment looks like this:
   }
 
   payment = Sisow::IdealPayment.new(payment_attributes)
-  redirect_url = payment.payment_url
+  redirect_url   = payment.payment_url
+  transaction_id = payment.transaction_id # this value corresponds with Sisow's "trxid"
 
 === Supported payment methods
 
