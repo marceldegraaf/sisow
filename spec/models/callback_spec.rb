@@ -34,6 +34,7 @@ describe Sisow::Api::Callback do
 
     @callback.valid?.should == true
     lambda { @callback.validate! }.should_not raise_error
+    @callback.validate!.should == true
   end
 
   it "should raise an error when invalid" do

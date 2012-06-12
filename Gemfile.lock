@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sisow (0.9.3)
+    sisow (0.9.4)
       hashie
       httparty
 

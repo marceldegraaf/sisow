@@ -18,6 +18,7 @@ module Sisow
       end
 
       def validate!
+        return true if valid_callback == true
         raise Sisow::Exception, "This callback is forged" and return if valid_callback == false
       end
 
