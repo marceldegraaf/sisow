@@ -35,6 +35,10 @@ module Sisow
       (!amount.nil? && amount != '')
     end
 
+    def ideal?
+      payment_method == 'ideal'
+    end
+
     def payment_method; raise 'Implement me in a subclass'; end
 
     private

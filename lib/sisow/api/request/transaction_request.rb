@@ -47,7 +47,7 @@ module Sisow
       private
 
         def transaction_params
-          {
+          params = {
             :payment      => payment.payment_method,
             :purchaseid   => payment.purchase_id,
             :amount       => payment.amount,
@@ -61,6 +61,25 @@ module Sisow
             :shop_id      => payment.shop_id,
             :sha1         => sha1
           }
+
+          # Only iDEAL payments need an actual issuerid
+          #
+          # In test mode, the other payment types need an issuerid
+          # that is '99' (otherwise you will always get a
+          # production payment URL, regardless of 'test=true'
+          # in the request.
+          #
+          # In production mode, the other payment types do
+          # not need an issuerid at all, so we just delete it.
+          unless payment.ideal?
+            if Sisow.configuration.test_mode_enabled?
+              params[:issuerid] = '99'
+            else
+              params.delete(:issuerid)
+            end
+          end
+
+          params
         end
 
         def payment
