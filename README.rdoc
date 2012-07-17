@@ -65,6 +65,7 @@ Setting up a payment looks like this:
     :cancel_url     => 'http://example.com',    # where the user is sent when he cancels the payment
     :callback_url   => 'http://example.com',    # where a failed (not cancelled) payment will be reported
     :notify_url     => 'http://example.com',    # where the payment status will be reported
+    :locale         => 'GB'                     # for Paypal payments. Only GB and US are currently valid. Any other option (or leaving it out entirely) will default to a Dutch payment page
   }
 
   payment = Sisow::IdealPayment.new(payment_attributes)
