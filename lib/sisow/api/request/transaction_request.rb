@@ -79,8 +79,8 @@ module Sisow
             end
           end
 
-          unless locale.nil? || locale.empty?
-            params[:locale] = locale
+          if payment.respond_to?(:locale) && ( !payment.locale.nil? && !payment.locale.empty? )
+            params[:locale] = payment.locale
           end
 
           params

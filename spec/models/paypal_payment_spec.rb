@@ -12,7 +12,8 @@ describe Sisow::PaypalPayment do
       :cancel_url    => 'http://example.com/cancel',
       :callback_url  => 'http://example.com/callback',
       :notify_url    => 'http://example.com/notify',
-      :amount        => 1299
+      :amount        => 1299,
+      :locale        => 'EN'
     )
   end
 
