@@ -79,6 +79,10 @@ module Sisow
             end
           end
 
+          unless locale.nil? || locale.empty?
+            params[:locale] = locale
+          end
+
           params
         end
 
