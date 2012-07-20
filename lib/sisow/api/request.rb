@@ -2,8 +2,7 @@ module Sisow
   module Api
     class Request
 
-      include HTTParty
-      base_uri "http://www.sisow.nl/Sisow/iDeal/RestHandler.ashx/"
+      BASE_URI = "http://www.sisow.nl/Sisow/iDeal/RestHandler.ashx"
 
       def self.perform
         new.perform
@@ -14,8 +13,9 @@ module Sisow
 
         validate!
 
-        response = self.class.get(uri)
-        response = Hashie::Mash.new(response)
+        http_response = HTTPI.get(base_uri + uri)
+        parsed_response = Crack::XML.parse(http_response.body)
+        response = Hashie::Mash.new(parsed_response)
 
         error!(response) if response.errorresponse?
 
@@ -59,6 +59,10 @@ module Sisow
         def error!(response)
           error_response = Sisow::ErrorResponse.new(response)
           raise Sisow::Exception, error_response.message and return
+        end
+
+        def base_uri
+          Sisow.configuration.base_uri || BASE_URI
         end
 
     end

@@ -1,7 +1,7 @@
 module Sisow
   class Configuration
 
-    attr_accessor :merchant_id, :merchant_key, :test_mode, :debug_mode, :shop_id
+    attr_accessor :merchant_id, :merchant_key, :test_mode, :debug_mode, :shop_id, :base_uri
 
     def initialize
       @debug_mode   = false
@@ -19,9 +19,10 @@ module Sisow
       @debug_mode = boolean
 
       if boolean == true
-        Sisow::Api::Request.debug_output $stderr
+        HTTPI.log = true
+        HTTPI.log_level = :debug
       else
-        Sisow::Api::Request.debug_output nil
+        HTTPI.log = false
       end
     end
 

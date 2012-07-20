@@ -1,7 +1,8 @@
 require 'rubygems'
-require 'httparty'
+require 'httpi'
 require 'hashie'
 require 'cgi'
+require 'crack/xml'
 
 require 'sisow/configuration'
 require 'sisow/error_response'

@@ -12,7 +12,8 @@ describe Sisow::Api::Request do
   end
 
   it "should point to the base URI of the Sisow API" do
-    Sisow::Api::Request.base_uri.should == "http://www.sisow.nl/Sisow/iDeal/RestHandler.ashx"
+    request = Sisow::Api::Request.new
+    request.send(:base_uri).should == "http://www.sisow.nl/Sisow/iDeal/RestHandler.ashx"
   end
 
   it "should perform properly" do

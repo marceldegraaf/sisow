@@ -31,5 +31,4 @@ describe Sisow::Configuration do
     @configuration.merchant_id.should == '123'
   end
 
-
 end

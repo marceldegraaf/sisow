@@ -97,6 +97,7 @@ module Sisow
             Sisow.configuration.merchant_id,
             Sisow.configuration.merchant_key
           ].join
+
           calculated_sha1 = Digest::SHA1.hexdigest(string)
 
           if calculated_sha1 != response.transactionrequest.signature.sha1
