@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sisow (1.0.1)
+    sisow (1.1.0)
       crack
       hashie
       httpi

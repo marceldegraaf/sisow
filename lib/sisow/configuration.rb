@@ -1,7 +1,7 @@
 module Sisow
   class Configuration
 
-    attr_accessor :merchant_id, :merchant_key, :test_mode, :debug_mode, :shop_id, :base_uri
+    attr_accessor :merchant_id, :merchant_key, :test_mode, :debug_mode, :shop_id, :base_uri, :logger
 
     def initialize
       @debug_mode   = false
@@ -26,8 +26,8 @@ module Sisow
       end
     end
 
-    def debug_mode_enabled?
-      @debug_mode == true
+    def logger=(logger)
+      HTTPI.logger = logger
     end
 
     def merchant_key=(merchant_key)

@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe Sisow::Configuration do
 
+  class MockLogger; end
+
   before :each do
     @configuration = Sisow::Configuration.new
     @configuration.merchant_id  = '123'
@@ -9,6 +11,7 @@ describe Sisow::Configuration do
     @configuration.shop_id      = '999'
     @configuration.debug_mode   = false
     @configuration.test_mode    = false
+    @configuration.logger       = MockLogger
   end
 
   it "should tell wether test mode is enabled" do
@@ -16,9 +19,8 @@ describe Sisow::Configuration do
     @configuration.test_mode_enabled?.should == true
   end
 
-  it "should tell wether debug mode is enabled" do
+  it "should set the debug mode to true" do
     @configuration.debug_mode = true
-    @configuration.debug_mode_enabled?.should == true
   end
 
   it "should always save merchant_key as string" do
