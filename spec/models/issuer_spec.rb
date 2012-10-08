@@ -11,4 +11,12 @@ describe Sisow::Issuer do
     end
   end
 
+  it "should find an issuer by ID" do
+    VCR.use_cassette('issuer') do
+      issuer = Sisow::Issuer.find(99)
+      issuer.class.should == Sisow::Issuer
+      issuer.name.should =~ /Sisow Bank/
+    end
+  end
+
 end
