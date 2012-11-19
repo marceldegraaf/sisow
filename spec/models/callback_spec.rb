@@ -68,6 +68,16 @@ describe Sisow::Api::Callback do
       @callback.status = 'Failure'
       @callback.failure?.should == true
     end
+
+    it "should be pending" do
+      @callback.status = 'Pending'
+      @callback.pending?.should == true
+    end
+
+    it "should be reversed" do
+      @callback.status = 'Reversed'
+      @callback.reversed?.should == true
+    end
   end
 
 end

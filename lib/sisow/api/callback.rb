@@ -38,6 +38,14 @@ module Sisow
         @status == 'Failure'
       end
 
+      def pending?
+        @status == 'Pending'
+      end
+
+      def reversed?
+        @status == 'Reversed'
+      end
+
       private
 
         def valid_callback
