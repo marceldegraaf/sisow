@@ -1,3 +1,5 @@
+require 'crack'
+
 module Sisow
   module Api
     class Request
