@@ -3,7 +3,7 @@ module Sisow
 
     def self.payment_methods
       payments = Sisow::CheckMerchantRequest.perform
-      [payments].flatten.map(&:payment)
+      [payments].flatten.map(&:payment).flatten
     end
 
   end
