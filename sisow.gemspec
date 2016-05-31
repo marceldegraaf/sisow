@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'httpi', '2.4.2'
   s.add_dependency 'hashie', '1.2.0'
-  s.add_dependency 'crack', '0.3.2'
+  s.add_dependency 'crack', '0.4.3'
 
   s.add_development_dependency 'rspec', '2.10.0'
   s.add_development_dependency 'vcr', '2.1.1'
