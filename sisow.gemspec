@@ -19,14 +19,14 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_dependency 'httpi'
-  s.add_dependency 'hashie'
-  s.add_dependency 'crack'
+  s.add_dependency 'httpi', '2.4.2'
+  s.add_dependency 'hashie', '1.2.0'
+  s.add_dependency 'crack', '0.4.3'
 
-  s.add_development_dependency 'rspec'
-  s.add_development_dependency 'vcr'
-  s.add_development_dependency 'fakeweb'
-  s.add_development_dependency 'simplecov'
-  s.add_development_dependency 'simplecov-rcov'
+  s.add_development_dependency 'rspec', '2.10.0'
+  s.add_development_dependency 'vcr', '2.1.1'
+  s.add_development_dependency 'fakeweb', '1.3.0'
+  s.add_development_dependency 'simplecov', '0.6.4'
+  s.add_development_dependency 'simplecov-rcov', '0.2.3'
 
 end
