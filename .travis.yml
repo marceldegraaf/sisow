@@ -5,3 +5,5 @@ rvm:
   - ree
 before_script: cp spec/sisow.yml.example spec/sisow.yml
 after_script: rm spec/sisow.yml
+before_install:
+  - gem install bundler
