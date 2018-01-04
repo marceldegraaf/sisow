@@ -1,7 +1,9 @@
 module Sisow
   class Payment
 
-    attr_accessor :purchase_id,
+    attr_accessor :merchant_id,
+                  :merchant_key,
+                  :purchase_id,
                   :issuer_id,
                   :description,
                   :amount,
@@ -48,7 +50,10 @@ module Sisow
       end
 
       def request
-        @request ||= Sisow::Api::TransactionRequest.new(self)
+        @request ||= Sisow::Api::TransactionRequest.new(self).tap do |r|
+          r.merchant_id = merchant_id if merchant_id
+          r.merchant_key = merchant_key if merchant_key
+        end
       end
 
   end

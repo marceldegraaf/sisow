@@ -38,4 +38,37 @@ describe Sisow::Api::Request do
     end
   end
 
+  describe "with instance configuration" do
+    it "should perform properly" do
+      Sisow.configure do |config|
+        config.merchant_id  = "invalid"
+        config.merchant_key = "invalid"
+      end
+
+      hash = YAML.load(File.open('./spec/sisow.yml'))
+
+      @request = Sisow::Api::Request.new
+      @request.merchant_id = hash['merchant_id']
+      @request.merchant_key = hash['merchant_key']
+      @request.stub!(:params).and_return(@request.default_params)
+      @request.stub!(:method).and_return("CheckMerchantRequest")
+      @request.stub!(:clean).and_return(['ideal'])
+      @request.stub!(:validate!).and_return(true)
+
+      sha1 = Digest::SHA1.hexdigest(
+        [
+          hash['merchant_id'],
+          hash['merchant_key']
+        ].join
+      )
+
+      params = @request.params.merge!(:sha1 => sha1)
+      @request.stub!(:params).and_return(params)
+
+      VCR.use_cassette('request') do
+        @request.perform
+      end
+    end
+  end
+
 end

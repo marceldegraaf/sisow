@@ -54,4 +54,16 @@ describe Sisow::Payment do
     lambda{ @payment.payment_url }.should raise_error(Sisow::Exception, "One of your payment parameters is missing or invalid")
   end
 
+  describe "with instance configuration" do
+    it "should set merchant_id and merchant_key from attributes" do
+      @payment.stub!(:payment_method).and_return('ideal')
+
+      @payment.merchant_id = "1234"
+      @payment.merchant_key = "4321"
+
+      @payment.send(:request).merchant_id.should == "1234"
+      @payment.send(:request).merchant_key.should == "4321"
+    end
+  end
+
 end
