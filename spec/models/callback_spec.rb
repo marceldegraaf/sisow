@@ -25,7 +25,22 @@ describe Sisow::Api::Callback do
   end
 
   it "should be valid" do
+    @callback.valid?.should == true
+    lambda { @callback.validate! }.should_not raise_error
+    @callback.validate!.should == true
+  end
+
+  it "should be valid with instance configuration" do
+    Sisow.configure do |config|
+      config.merchant_id  = "invalid"
+      config.merchant_key = "invalid"
+    end
+
+    hash = YAML.load(File.open('./spec/sisow.yml'))
+
     @callback = Sisow::Api::Callback.new(
+      :merchant_id => hash['merchant_id'],
+      :merchant_key => hash['merchant_key'],
       :transaction_id => @transaction_id,
       :entrance_code  => @entrance_code,
       :status => @status,
