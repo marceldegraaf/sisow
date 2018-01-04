@@ -69,6 +69,15 @@ describe Sisow::Api::Request do
         @request.perform
       end
     end
+
+    it "should set merchant_id and merchant_key using class method" do
+      subject.stub!(:perform).and_return(subject)
+
+      obj = subject.class.perform(merchant_id: "1234", merchant_key: "4321")
+
+      obj.merchant_id.should == "1234"
+      obj.merchant_key.should == "4321"
+    end
   end
 
 end

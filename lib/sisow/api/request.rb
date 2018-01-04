@@ -6,8 +6,8 @@ module Sisow
 
       BASE_URI = "http://www.sisow.nl/Sisow/iDeal/RestHandler.ashx"
 
-      attr_writer :merchant_key,
-                  :merchant_id
+      attr_writer :merchant_id,
+                  :merchant_key
 
       def merchant_id
         @merchant_id || Sisow.configuration.merchant_id
@@ -17,8 +17,11 @@ module Sisow
         @merchant_key || Sisow.configuration.merchant_key
       end
 
-      def self.perform
-        new.perform
+      def self.perform(merchant_id: nil, merchant_key: nil)
+        new.tap do |r|
+          r.merchant_id = merchant_id if merchant_id
+          r.merchant_key = merchant_key if merchant_key
+        end.perform
       end
 
       def perform

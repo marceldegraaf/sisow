@@ -2,8 +2,8 @@ module Sisow
   class Issuer
     attr_accessor :id, :name
 
-    def self.list
-      @list ||= find_all_from_api
+    def self.list(merchant_id: nil, merchant_key: nil)
+      @list ||= find_all_from_api(merchant_id, merchant_key)
     end
 
     def self.find(issuer_id)
@@ -17,8 +17,8 @@ module Sisow
 
     private
 
-    def self.find_all_from_api
-      hash = Sisow::Api::DirectoryRequest.perform
+    def self.find_all_from_api(merchant_id = nil, merchant_key = nil)
+      hash = Sisow::Api::DirectoryRequest.perform(merchant_id: merchant_id, merchant_key: merchant_key)
 
       hash.issuer = [ hash.issuer ] unless hash.issuer.is_a?(Array)
 
