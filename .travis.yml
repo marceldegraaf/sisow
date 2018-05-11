@@ -1,5 +1,3 @@
 language: ruby
 rvm:
   - 1.9.3
-before_script: cp spec/sisow.yml.example spec/sisow.yml
-after_script: rm spec/sisow.yml

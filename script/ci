@@ -9,6 +9,4 @@ echo "--- Starting continuous integration build"
 
 ./script/bundler
 
-cp ./spec/sisow.yml.example ./spec/sisow.yml
-
 run rspec
