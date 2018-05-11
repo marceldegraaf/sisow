@@ -1,6 +1,7 @@
 *.gem
 .bundle
 .env
+Gemfile.lock
 pkg/*
 coverage/
 spec/vcr_cassettes
