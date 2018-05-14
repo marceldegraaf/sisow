@@ -1,7 +1,8 @@
 *.gem
 .bundle
+.env
+Gemfile.lock
 pkg/*
-spec/sisow.yml
 coverage/
 spec/vcr_cassettes
 vendor

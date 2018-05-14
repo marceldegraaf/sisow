@@ -61,7 +61,7 @@ Setting up a payment looks like this:
     :cancel_url     => 'http://example.com',    # where the user is sent when he cancels the payment
     :callback_url   => 'http://example.com',    # where a failed (not cancelled) payment will be reported
     :notify_url     => 'http://example.com',    # where the payment status will be reported
-    :locale         => 'GB'                     # for Paypal payments. Only GB and US are currently valid. 
+    :locale         => 'GB'                     # for Paypal payments. Only GB and US are currently valid.
                                                 # Any other option (or leaving it out entirely) will default
                                                 # to a Dutch payment page
   }
@@ -111,7 +111,7 @@ Your contributions are more than welcome. To contribute to this gem, follow thes
 1. Fork the repository from Github
 2. Clone your fork on your development machine
 3. Install the dependencies with <tt>bundle install</tt>
-4. Copy <tt>spec/sisow.yml.example</tt> to <tt>spec/sisow.yml</tt> and enter your own Sisow credentials
+4. Copy <tt>.env.example</tt> to <tt>.env</tt> and enter your own Sisow credentials
 5. Verify your clone is working by running <tt>rspec</tt>
 6. Hack away
 7. Run the specs with <tt>rspec</tt>

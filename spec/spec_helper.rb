@@ -1,3 +1,4 @@
+require 'dotenv/load'
 require 'bundler/setup'
 require 'simplecov'
 require 'simplecov-rcov'
@@ -22,11 +23,9 @@ RSpec.configure do |config|
   config.formatter = :progress
 
   config.before(:each) do
-    hash = YAML.load(File.open('./spec/sisow.yml'))
-
     Sisow.configure do |config|
-      config.merchant_id  = hash['merchant_id']
-      config.merchant_key = hash['merchant_key']
+      config.merchant_id  = ENV.fetch('MERCHANT_ID')
+      config.merchant_key = ENV.fetch('MERCHANT_KEY')
       config.test_mode    = true
       config.debug_mode   = false
     end
