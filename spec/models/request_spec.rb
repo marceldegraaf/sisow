@@ -4,11 +4,11 @@ describe Sisow::Api::Request do
 
   before :each do
     @request = Sisow::Api::Request.new
-    @request.stub!(:params).and_return(@request.default_params)
-    @request.stub!(:method).and_return("CheckMerchantRequest")
-    @request.stub!(:clean).and_return(['ideal'])
-    @request.stub!(:validate!).and_return(true)
-    Sisow::Api::Request.stub!(:new).and_return(@request)
+    @request.stub(:params).and_return(@request.default_params)
+    @request.stub(:method).and_return("CheckMerchantRequest")
+    @request.stub(:clean).and_return(['ideal'])
+    @request.stub(:validate!).and_return(true)
+    Sisow::Api::Request.stub(:new).and_return(@request)
   end
 
   it "should point to the base URI of the Sisow API" do
@@ -25,7 +25,7 @@ describe Sisow::Api::Request do
     )
 
     params = @request.params.merge!(:sha1 => sha1)
-    @request.stub!(:params).and_return(params)
+    @request.stub(:params).and_return(params)
 
     VCR.use_cassette('request') do
       @request.perform

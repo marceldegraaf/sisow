@@ -29,7 +29,7 @@ describe Sisow::Api::TransactionRequest do
   end
 
   it "should remove issuerid from params for Bancontact" do
-    Sisow.configuration.stub!(:test_mode_enabled?).and_return(false)
+    Sisow.configuration.stub(:test_mode_enabled?).and_return(false)
     payment = Sisow::BancontactPayment.new
     request = Sisow::Api::TransactionRequest.new(payment)
 
@@ -44,7 +44,7 @@ describe Sisow::Api::TransactionRequest do
   end
 
   it "should remove issuerid from params for Sofort" do
-    Sisow.configuration.stub!(:test_mode_enabled?).and_return(false)
+    Sisow.configuration.stub(:test_mode_enabled?).and_return(false)
     payment = Sisow::SofortPayment.new
     request = Sisow::Api::TransactionRequest.new(payment)
 
