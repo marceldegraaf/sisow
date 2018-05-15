@@ -17,10 +17,8 @@ describe Sisow::Issuer do
       config.merchant_key = "invalid"
     end
 
-    hash = YAML.load(File.open('./spec/sisow.yml'))
-
     VCR.use_cassette('issuer') do
-      list = Sisow::Issuer.list(merchant_id: hash['merchant_id'], merchant_key: hash['merchant_key'])
+      list = Sisow::Issuer.list(merchant_id: ENV.fetch('MERCHANT_ID'), merchant_key: ENV.fetch('MERCHANT_KEY'))
       list.size.should == 1
       list.first.name.should =~ /Sisow Bank/
       list.first.id.should_not be_nil

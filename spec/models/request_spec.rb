@@ -45,11 +45,9 @@ describe Sisow::Api::Request do
         config.merchant_key = "invalid"
       end
 
-      hash = YAML.load(File.open('./spec/sisow.yml'))
-
       @request = Sisow::Api::Request.new
-      @request.merchant_id = hash['merchant_id']
-      @request.merchant_key = hash['merchant_key']
+      @request.merchant_id = ENV.fetch('MERCHANT_ID')
+      @request.merchant_key = ENV.fetch('MERCHANT_KEY')
       @request.stub(:params).and_return(@request.default_params)
       @request.stub(:method).and_return("CheckMerchantRequest")
       @request.stub(:clean).and_return(['ideal'])
@@ -57,8 +55,8 @@ describe Sisow::Api::Request do
 
       sha1 = Digest::SHA1.hexdigest(
         [
-          hash['merchant_id'],
-          hash['merchant_key']
+          ENV.fetch('MERCHANT_ID'),
+          ENV.fetch('MERCHANT_KEY')
         ].join
       )
 

@@ -36,11 +36,9 @@ describe Sisow::Api::Callback do
       config.merchant_key = "invalid"
     end
 
-    hash = YAML.load(File.open('./spec/sisow.yml'))
-
     @callback = Sisow::Api::Callback.new(
-      :merchant_id => hash['merchant_id'],
-      :merchant_key => hash['merchant_key'],
+      :merchant_id => ENV.fetch('MERCHANT_ID'),
+      :merchant_key => ENV.fetch('MERCHANT_KEY'),
       :transaction_id => @transaction_id,
       :entrance_code  => @entrance_code,
       :status => @status,
