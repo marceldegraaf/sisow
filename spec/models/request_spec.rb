@@ -50,10 +50,10 @@ describe Sisow::Api::Request do
       @request = Sisow::Api::Request.new
       @request.merchant_id = hash['merchant_id']
       @request.merchant_key = hash['merchant_key']
-      @request.stub!(:params).and_return(@request.default_params)
-      @request.stub!(:method).and_return("CheckMerchantRequest")
-      @request.stub!(:clean).and_return(['ideal'])
-      @request.stub!(:validate!).and_return(true)
+      @request.stub(:params).and_return(@request.default_params)
+      @request.stub(:method).and_return("CheckMerchantRequest")
+      @request.stub(:clean).and_return(['ideal'])
+      @request.stub(:validate!).and_return(true)
 
       sha1 = Digest::SHA1.hexdigest(
         [
@@ -63,7 +63,7 @@ describe Sisow::Api::Request do
       )
 
       params = @request.params.merge!(:sha1 => sha1)
-      @request.stub!(:params).and_return(params)
+      @request.stub(:params).and_return(params)
 
       VCR.use_cassette('request') do
         @request.perform
@@ -71,7 +71,7 @@ describe Sisow::Api::Request do
     end
 
     it "should set merchant_id and merchant_key using class method" do
-      subject.stub!(:perform).and_return(subject)
+      subject.stub(:perform).and_return(subject)
 
       obj = subject.class.perform(merchant_id: "1234", merchant_key: "4321")
 

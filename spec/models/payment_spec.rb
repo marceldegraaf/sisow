@@ -56,7 +56,7 @@ describe Sisow::Payment do
 
   describe "with instance configuration" do
     it "should set merchant_id and merchant_key from attributes" do
-      @payment.stub!(:payment_method).and_return('ideal')
+      @payment.stub(:payment_method).and_return('ideal')
 
       @payment.merchant_id = "1234"
       @payment.merchant_key = "4321"
