@@ -38,4 +38,44 @@ describe Sisow::Api::Request do
     end
   end
 
+  describe "with instance configuration" do
+    it "should perform properly" do
+      Sisow.configure do |config|
+        config.merchant_id  = "invalid"
+        config.merchant_key = "invalid"
+      end
+
+      @request = Sisow::Api::Request.new
+      @request.merchant_id = ENV.fetch('MERCHANT_ID')
+      @request.merchant_key = ENV.fetch('MERCHANT_KEY')
+      @request.stub(:params).and_return(@request.default_params)
+      @request.stub(:method).and_return("CheckMerchantRequest")
+      @request.stub(:clean).and_return(['ideal'])
+      @request.stub(:validate!).and_return(true)
+
+      sha1 = Digest::SHA1.hexdigest(
+        [
+          ENV.fetch('MERCHANT_ID'),
+          ENV.fetch('MERCHANT_KEY')
+        ].join
+      )
+
+      params = @request.params.merge!(:sha1 => sha1)
+      @request.stub(:params).and_return(params)
+
+      VCR.use_cassette('request') do
+        @request.perform
+      end
+    end
+
+    it "should set merchant_id and merchant_key using class method" do
+      subject.stub(:perform).and_return(subject)
+
+      obj = subject.class.perform(merchant_id: "1234", merchant_key: "4321")
+
+      obj.merchant_id.should == "1234"
+      obj.merchant_key.should == "4321"
+    end
+  end
+
 end

@@ -6,8 +6,22 @@ module Sisow
 
       BASE_URI = "http://www.sisow.nl/Sisow/iDeal/RestHandler.ashx"
 
-      def self.perform
-        new.perform
+      attr_writer :merchant_id,
+                  :merchant_key
+
+      def merchant_id
+        @merchant_id || Sisow.configuration.merchant_id
+      end
+
+      def merchant_key
+        @merchant_key || Sisow.configuration.merchant_key
+      end
+
+      def self.perform(merchant_id: nil, merchant_key: nil)
+        new.tap do |r|
+          r.merchant_id = merchant_id if merchant_id
+          r.merchant_key = merchant_key if merchant_key
+        end.perform
       end
 
       def perform
@@ -26,7 +40,7 @@ module Sisow
 
       def default_params
         {
-          :merchantid  => Sisow.configuration.merchant_id,
+          :merchantid  => merchant_id,
           :test        => Sisow.configuration.test_mode_enabled?? test_mode_param : nil
         }
       end
@@ -39,7 +53,7 @@ module Sisow
       private
 
         def can_perform?
-          !(Sisow.configuration.merchant_id.nil? || Sisow.configuration.merchant_id.empty?) && !(Sisow.configuration.merchant_key.nil? || Sisow.configuration.merchant_key.empty?)
+          !(merchant_id.nil? || merchant_id.empty?) && !(merchant_key.nil? || merchant_key.empty?)
         end
 
         def uri

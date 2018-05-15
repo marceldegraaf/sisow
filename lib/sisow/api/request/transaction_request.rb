@@ -2,12 +2,6 @@ module Sisow
   module Api
     class TransactionRequest < Request
 
-      attr_accessor :purchase_id,
-                    :issuer_id,
-                    :description,
-                    :amount,
-                    :payment
-
       def initialize(payment)
         @payment = payment
       end
@@ -37,8 +31,8 @@ module Sisow
           payment.purchase_id,
           payment.entrance_code,
           payment.amount,
-          Sisow.configuration.merchant_id,
-          Sisow.configuration.merchant_key
+          merchant_id,
+          merchant_key
         ].join
 
         Digest::SHA1.hexdigest(string)
@@ -94,8 +88,8 @@ module Sisow
           string = [
             response.transactionrequest.transaction.trxid,
             response.transactionrequest.transaction.issuerurl,
-            Sisow.configuration.merchant_id,
-            Sisow.configuration.merchant_key
+            merchant_id,
+            merchant_key
           ].join
 
           calculated_sha1 = Digest::SHA1.hexdigest(string)

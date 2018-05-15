@@ -2,6 +2,9 @@ module Sisow
   module Api
     class Callback
 
+      attr_writer :merchant_key,
+                  :merchant_id
+
       attr_accessor :transaction_id,
                     :entrance_code,
                     :status,
@@ -46,10 +49,18 @@ module Sisow
         @status == 'Reversed'
       end
 
+      def merchant_id
+        @merchant_id || Sisow.configuration.merchant_id
+      end
+
+      def merchant_key
+        @merchant_key || Sisow.configuration.merchant_key
+      end
+
       private
 
         def valid_callback
-          string = [ @transaction_id, @entrance_code, @status, Sisow.configuration.merchant_id, Sisow.configuration.merchant_key ].join
+          string = [ @transaction_id, @entrance_code, @status, merchant_id, merchant_key ].join
           calculated_sha1 = Digest::SHA1.hexdigest(string)
 
           calculated_sha1 == @sha1
