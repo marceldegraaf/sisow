@@ -20,15 +20,14 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'httpi', '~> 2'
-  s.add_dependency 'hashie', '~> 1'
-  s.add_dependency 'crack', '~> 0.3'
+  s.add_dependency 'hashie', '~> 3'
+  s.add_dependency 'crack', '~> 0.4'
 
-  s.add_development_dependency 'rspec', '~> 2'
-  s.add_development_dependency 'vcr', '~> 2'
-  s.add_development_dependency 'fakeweb', '~> 1'
-  s.add_development_dependency 'simplecov', '~> 0.6'
+  s.add_development_dependency 'rspec', '~> 3'
+  s.add_development_dependency 'vcr', '~> 4'
+  s.add_development_dependency 'webmock', '~> 3'
+  s.add_development_dependency 'simplecov', '~> 0.16'
   s.add_development_dependency 'simplecov-rcov', '~> 0.2'
-  s.add_development_dependency 'rack', '~> 1'
   s.add_development_dependency 'dotenv', '~> 2'
 
 end

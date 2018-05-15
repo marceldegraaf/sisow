@@ -13,14 +13,14 @@ end
 
 require 'vcr_setup'
 
-require 'rspec/autorun'
 require 'sisow'
 
 RSpec.configure do |config|
-  config.mock_with :rspec
-  config.color_enabled = true
+  config.mock_with(:rspec) { |c| c.syntax = :should }
+  config.color = true
   config.tty = true
   config.formatter = :progress
+  config.expect_with(:rspec) { |c| c.syntax = :should }
 
   config.before(:each) do
     Sisow.configure do |config|

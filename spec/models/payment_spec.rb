@@ -46,7 +46,7 @@ describe Sisow::Payment do
   end
 
   it "should raise an error when calling payment_method" do
-    lambda{ @payment.payment_method }.should raise_error
+    lambda{ @payment.payment_method }.should raise_error(RuntimeError, "Implement me in a subclass")
   end
 
   it "should raise an error if amount is missing" do
