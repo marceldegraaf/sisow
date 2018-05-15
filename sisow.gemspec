@@ -20,8 +20,8 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'httpi', '~> 2'
-  s.add_dependency 'hashie', '~> 1'
-  s.add_dependency 'crack', '~> 0.3'
+  s.add_dependency 'hashie', '~> 3'
+  s.add_dependency 'crack', '~> 0.4'
 
   s.add_development_dependency 'rspec', '~> 2'
   s.add_development_dependency 'vcr', '~> 2'
