@@ -44,6 +44,10 @@ To set up a payment, your user needs to choose an issuer (a bank) that will fulf
 This will return a list of <tt>Sisow::Issuer</tt> objects that have an <tt>id</tt> and a <tt>name</tt>. The <tt>id</tt> is needed
 to set up the payment in the following step.
 
+Optionally you can also retrieve a list of issuers by supplying the merchant_id and merchant_key directly to the method.
+
+  Sisow::Issuer.list(merchant_id: 1, merchant_key: 'abcd')
+
 === Setting up a payment
 
 After choosing an issuer, your user must be redirected to the payment page for that issuer. For that to happen, you'll have to
@@ -52,6 +56,8 @@ set up a payment through the Sisow API, after which you'll be given a URL to red
 Setting up a payment looks like this:
 
   payment_attributes = {
+    :merchant_id    => 1,                       # optional: set if you don't want to use a global configuration
+    :merchant_key   => 'abcd',                  # optional: set if you don't want to use a global configuration
     :purchase_id    => '2012-01-28-33558',      # for your own reference
     :issuer_id      => '99',                    # the issuer id from the previous step
     :description    => 'Acme Inc. payment',     # description of this payment
@@ -89,6 +95,8 @@ As documented in the Sisow API documentation, four callbacks are available. When
 The <tt>Sisow::Api::Callback</tt> can handle these callbacks for you. To initialize such an instance you should provide the following query parameters (which are given by Sisow in the request):
 
   callback = Sisow::Api::Callback.new(
+    :merchant_id    => 1,                       # optional: set if you don't want to use a global configuration
+    :merchant_key   => 'abcd',                  # optional: set if you don't want to use a global configuration
     :transaction_id => params[:trxid],
     :entrance_code  => params[:ec],
     :status         => params[:status],
