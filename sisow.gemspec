@@ -28,7 +28,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'webmock', '~> 3'
   s.add_development_dependency 'simplecov', '~> 0.6'
   s.add_development_dependency 'simplecov-rcov', '~> 0.2'
-  s.add_development_dependency 'rack', '~> 1'
   s.add_development_dependency 'dotenv', '~> 2'
 
 end
