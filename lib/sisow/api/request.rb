@@ -4,7 +4,7 @@ module Sisow
   module Api
     class Request
 
-      BASE_URI = "http://www.sisow.nl/Sisow/iDeal/RestHandler.ashx"
+      BASE_URI = "https://www.sisow.nl/Sisow/iDeal/RestHandler.ashx"
 
       attr_writer :merchant_id,
                   :merchant_key
